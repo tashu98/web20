@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+    .container
+        h1.mb-4 Race Details
+        ul.list-group
+            li.list-group-item
+                strong Name:
+                span= race.name
+            li.list-group-item
+                strong Date:
+                span= race.date.toLocaleDateString()
+            li.list-group-item
+                strong Location:
+                span= race.location
+            li.list-group-item
+                strong Distance:
+                span= race.distance
+            li.list-group-item
+                strong Teams:
+                if race.teams.length > 0
+                    ul
+                        each team in race.teams
+                            li= team.name
+                else
+                    span No teams
+        if isAdmin
+            a.btn.btn-primary(href=`/races/${race._id}/edit`) Edit
+            form(action=`/races/${race._id}/delete`, method="post")
+                button.btn.btn-danger(type="submit") Delete

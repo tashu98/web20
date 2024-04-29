@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    .container
+        .row.justify-content-center.mt-5
+            .col-md-6
+                .card
+                    .card-header
+                        h1.text-center Login
+                    .card-body
+                        if (typeof (error) !== 'undefined')
+                            .alert.alert-danger.text-center
+                                text=error
+                        form(action='/login' method='POST')
+                            .form-group
+                                label(for='email') Email:
+                                input.form-control(type='text' name='email' required)
+                            .form-group
+                                label(for='password') Password:
+                                input.form-control(type='password' name='password' required)
+                            button.btn.btn-primary.btn-block(type='submit') Login
+                        a(href='/register' class='btn btn-link mt-3') Register

@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+    .container
+        .row.justify-content-between.align-items-center.mb-4
+            if isAdmin
+                .col-md-6
+                    h1 Sponsors Dashboard
+                .col-md-6.d-flex.justify-content-end
+                    a.btn.btn-primary(href="/sponsors/new") Create Sponsor
+            else
+                .col-md-12
+                    h1 Sponsors
+        table.table.table-striped
+            thead
+                tr
+                    th Name
+                    th Industry
+                    th Actions
+            tbody
+                each sponsor in sponsors
+                    tr
+                        td= sponsor.name
+                        td= sponsor.industry
+                        td
+                            .btn-group
+                                a.btn.btn-info(href=`/sponsors/${sponsor._id}`) View
+                                if isAdmin
+                                    a.btn.btn-warning(href=`/sponsors/${sponsor._id}/edit`) Edit
+                                    form(action=`/sponsors/${sponsor._id}/delete`, method="post")
+                                        button.btn.btn-danger(type="submit") Delete

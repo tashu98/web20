@@ -1,13 +1,94 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+const User = require('../models/User');
 
-const auth = async (req, res, next) => {
+exports.verifyLoggedIn = async (req, res, next) => {
     try {
-        const token = req.header('Authorization').replace('Bearer ', '');
-        req.user = jwt.verify(token, 'your-secret-key');
+        const token = req.cookies.jwtToken;
+
+        if (!token) {
+            return res.redirect('/login?error=Unauthorized',)
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.id);
+
+        if (!user) {
+            return res.redirect('/login?error=Unauthorized',)
+        }
+        req.user = user;
         next();
     } catch (error) {
-        res.status(401).send({ error: 'Authentication failed' });
+        console.error(error);
+        return res.redirect('/login?error=Unauthorized',)
     }
 };
 
-module.exports = auth;
+exports.verifyAdmin = async (req, res, next) => {
+    try {
+        const token = req.cookies.jwtToken;
+        if (!token) {
+            return res.redirect('/login?error=Unauthorized',)
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.id);
+        if (!user) {
+            return res.redirect('/login?error=Unauthorized',)
+        }
+
+        if (decoded.role === 'admin') {
+            req.user = decoded;
+            next();
+        } else {
+            return res.status(403).render('error', {message: 'Forbidden', error: {status: 403}});
+        }
+    } catch (error) {
+        console.error(error);
+        return res.redirect('/login?error=Unauthorized',)
+    }
+
+};
+
+exports.isLoggedIn = async (req) => {
+    try {
+        const token = req.cookies.jwtToken;
+        if (!token) {
+            return false;
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.id);
+        if (!user) {
+            return false;
+        }
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+exports.isAdmin = async (req) => {
+    try {
+
+        const token = req.cookies.jwtToken;
+        if (!token) {
+            return false;
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.id);
+        if (!user) {
+            return false;
+        }
+
+        if (decoded.role === 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    } catch
+        (error) {
+        console.error(error);
+        return false;
+    }
+}

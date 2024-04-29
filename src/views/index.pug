@@ -1,5 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title} nekersddddxddd
+    .container
+        .row.justify-content-center.mt-5
+            .col-md-6
+                .card
+                    .card-header
+                        h1.text-center Welcome
+                    .card-body
+                        p.text-center Please proceed to:
+                        ul.list-group
+                            li.list-group-item
+                                a(href='/login') Login
+                            li.list-group-item
+                                a(href='/register') Register

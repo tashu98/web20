@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+    .container
+        .row.justify-content-between.align-items-center.mb-4
+            if isAdmin
+                .col-md-6
+                    h1 Drivers Dashboard
+                .col-md-6.d-flex.justify-content-end
+                    a.btn.btn-primary(href="/drivers/new") Create Driver
+            else
+                .col-md-12
+                    h1 Drivers Dashboard
+        table.table.table-striped
+            thead
+                tr
+                    th Name
+                    th Age
+                    th Nationality
+                    th Team
+                    th Actions
+            tbody
+                each driver in drivers
+                    tr
+                        td= driver.name
+                        td= driver.age
+                        td= driver.nationality
+                        td
+                            if driver.team
+                                = driver.team.name
+                            else
+                                | No Team
+                        td
+                            .btn-group
+                                a.btn.btn-info(href=`/drivers/${driver._id}`) View
+                                if isAdmin
+                                    a.btn.btn-warning(href=`/drivers/${driver._id}/edit`) Edit
+                                    form(action=`/drivers/${driver._id}/delete`, method="post")
+                                        button.btn.btn-danger(type="submit") Delete

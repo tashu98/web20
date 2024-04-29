@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+    .container
+        .row.justify-content-center
+            .col-md-6
+                h1.mb-4 Team Details
+                ul.list-group
+                    li.list-group-item
+                        strong Name:
+                        span.ml-2= team.name
+                    li.list-group-item
+                        strong Country:
+                        span.ml-2= team.country
+                    li.list-group-item
+                        strong Drivers:
+                        ul
+                            if team.drivers.length > 0
+                                each driver in team.drivers
+                                    li= driver.name
+                            else
+                                li No drivers associated with this team
+                    li.list-group-item
+                        strong Sponsors:
+                        ul
+                            if team.sponsors.length > 0
+                                each sponsor in team.sponsors
+                                    li= sponsor.name
+                            else
+                                li No sponsors associated with this team
+                if isAdmin
+                    a.btn.btn-primary(href=`/teams/${team._id}/edit`) Edit
+                    form(action=`/teams/${team._id}/delete`, method="post")
+                        button.btn.btn-danger(type="submit") Delete
