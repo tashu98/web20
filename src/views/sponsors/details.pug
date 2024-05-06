@@ -13,6 +13,6 @@ block content
                         strong Industry:
                         span.ml-2= sponsor.industry
                 if isAdmin
-                    a.btn.btn-primary(href=`/sponsors/${sponsor._id}/edit`) Edit
-                    form(action=`/sponsors/${sponsor._id}/delete`, method="post")
+                    a.btn.btn-primary(href=`/sponsors/details/${sponsor._id}/edit`) Edit
+                    form(action=`/sponsors/details/${sponsor._id}/delete`, method="post")
                         button.btn.btn-danger(type="submit") Delete

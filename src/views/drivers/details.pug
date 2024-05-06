@@ -19,4 +19,4 @@ block content
                         strong Team:
                         span.ml-2= driver.team ? driver.team.name : 'No Team'
                 if isAdmin
-                    a.btn.btn-primary(href=`/drivers/${driver._id}/edit`) Edit
+                    a.btn.btn-primary(href=`/drivers/details/${driver._id}/edit`) Edit

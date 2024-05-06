@@ -5,7 +5,7 @@ block content
         .row.justify-content-center
             .col-md-6
                 h1.mb-4 Edit Driver
-                form(action=`/drivers/${driver._id}/edit`, method="post")
+                form(action=`/drivers/details/${driver._id}/edit`, method="post")
                     .form-group
                         label(for="name") Name:
                         input.form-control(type="text", id="name", name="name", value=driver.name)

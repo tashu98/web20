@@ -37,8 +37,8 @@ block content
                                 span No teams
                         td
                             .btn-group
-                                a.btn.btn-info(href=`/races/${race._id}`) View
+                                a.btn.btn-info(href=`/races/details/${race._id}`) View
                                 if isAdmin
-                                    a.btn.btn-warning(href=`/races/${race._id}/edit`) Edit
-                                    form(action=`/races/${race._id}/delete`, method="post")
+                                    a.btn.btn-warning(href=`/races/details/${race._id}/edit`) Edit
+                                    form(action=`/races/details/${race._id}/delete`, method="post")
                                         button.btn.btn-danger(type="submit") Delete

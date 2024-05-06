@@ -25,6 +25,6 @@ block content
                 else
                     span No teams
         if isAdmin
-            a.btn.btn-primary(href=`/races/${race._id}/edit`) Edit
-            form(action=`/races/${race._id}/delete`, method="post")
+            a.btn.btn-primary(href=`/races/details/${race._id}/edit`) Edit
+            form(action=`/races/details/${race._id}/delete`, method="post")
                 button.btn.btn-danger(type="submit") Delete

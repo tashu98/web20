@@ -29,6 +29,6 @@ block content
                             else
                                 li No sponsors associated with this team
                 if isAdmin
-                    a.btn.btn-primary(href=`/teams/${team._id}/edit`) Edit
-                    form(action=`/teams/${team._id}/delete`, method="post")
+                    a.btn.btn-primary(href=`/teams/details/${team._id}/edit`) Edit
+                    form(action=`/teams/details/${team._id}/delete`, method="post")
                         button.btn.btn-danger(type="submit") Delete

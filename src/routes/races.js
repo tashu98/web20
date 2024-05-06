@@ -4,11 +4,11 @@ const raceController = require('../controllers/views/racesView');
 const {verifyAdmin} = require("../middleware/auth");
 
 router.get('/', raceController.getAllRaces);
-router.get('/:id', raceController.getRaceById);
+router.get('/details/:id', raceController.getRaceById);
 router.get('/new', verifyAdmin, raceController.renderCreateForm);
-router.post('/', verifyAdmin, raceController.createRace);
-router.get('/:id/edit', verifyAdmin, raceController.renderEditForm);
-router.post('/:id/edit', verifyAdmin, raceController.updateRace);
-router.post('/:id/delete', verifyAdmin, raceController.deleteRace);
+router.post('/new', verifyAdmin, raceController.createRace);
+router.get('/details/:id/edit', verifyAdmin, raceController.renderEditForm);
+router.post('/details/:id/edit', verifyAdmin, raceController.updateRace);
+router.post('/details/:id/delete', verifyAdmin, raceController.deleteRace);
 
 module.exports = router;

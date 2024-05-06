@@ -24,8 +24,8 @@ block content
                         td= sponsor.industry
                         td
                             .btn-group
-                                a.btn.btn-info(href=`/sponsors/${sponsor._id}`) View
+                                a.btn.btn-info(href=`/sponsors/details/${sponsor._id}`) View
                                 if isAdmin
-                                    a.btn.btn-warning(href=`/sponsors/${sponsor._id}/edit`) Edit
-                                    form(action=`/sponsors/${sponsor._id}/delete`, method="post")
+                                    a.btn.btn-warning(href=`/sponsors/details/${sponsor._id}/edit`) Edit
+                                    form(action=`/sponsors/details/${sponsor._id}/delete`, method="post")
                                         button.btn.btn-danger(type="submit") Delete

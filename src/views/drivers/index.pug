@@ -32,8 +32,8 @@ block content
                                 | No Team
                         td
                             .btn-group
-                                a.btn.btn-info(href=`/drivers/${driver._id}`) View
+                                a.btn.btn-info(href=`/drivers/details/${driver._id}`) View
                                 if isAdmin
-                                    a.btn.btn-warning(href=`/drivers/${driver._id}/edit`) Edit
-                                    form(action=`/drivers/${driver._id}/delete`, method="post")
+                                    a.btn.btn-warning(href=`/drivers/details/${driver._id}/edit`) Edit
+                                    form(action=`/drivers/details/${driver._id}/delete`, method="post")
                                         button.btn.btn-danger(type="submit") Delete

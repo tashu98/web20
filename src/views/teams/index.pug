@@ -24,8 +24,8 @@ block content
                         td= team.country
                         td
                             .btn-group
-                                a.btn.btn-info(href=`/teams/${team._id}`) View
+                                a.btn.btn-info(href=`/teams/details/${team._id}`) View
                                 if isAdmin
-                                    a.btn.btn-warning(href=`/teams/${team._id}/edit`) Edit
-                                    form(action=`/teams/${team._id}/delete`, method="post")
+                                    a.btn.btn-warning(href=`/teams/details/${team._id}/edit`) Edit
+                                    form(action=`/teams/details/${team._id}/delete`, method="post")
                                         button.btn.btn-danger(type="submit") Delete

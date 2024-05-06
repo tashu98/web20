@@ -84,20 +84,35 @@ exports.renderEditForm = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
-
 exports.updateDriver = async (req, res) => {
     try {
-        const {name, age, nationality, team} = req.body;
+        const { name, age, nationality, team } = req.body;
 
         // Find the driver by ID
         const driver = await Driver.findById(req.params.id);
 
+        // Check if the driver exists
+        if (!driver) {
+            return res.status(404).send('Driver not found');
+        }
+
+        // Check if the driver has a team before converting it to a string
+        const oldTeamId = driver.team ? driver.team.toString() : null;
+
+        // Check if the team exists
+        const existingTeam = await Team.findById(team);
+        if (!existingTeam) {
+            return res.status(400).send('Team not found');
+        }
+
         // Check if the team ID has changed
-        if (team !== driver.team.toString()) {
+        if (team !== oldTeamId) {
             // If the team ID has changed, remove the driver from the old team's drivers array
-            const oldTeam = await Team.findById(driver.team);
-            oldTeam.drivers = oldTeam.drivers.filter(driverId => driverId.toString() !== req.params.id);
-            await oldTeam.save();
+            if (oldTeamId) {
+                const oldTeam = await Team.findById(oldTeamId);
+                oldTeam.drivers = oldTeam.drivers.filter(driverId => driverId.toString() !== req.params.id);
+                await oldTeam.save();
+            }
 
             // Update the driver with the new team
             driver.name = name;
@@ -107,12 +122,11 @@ exports.updateDriver = async (req, res) => {
             await driver.save();
 
             // Add the driver to the new team's drivers array
-            const newTeam = await Team.findById(team);
-            newTeam.drivers.push(driver._id);
-            await newTeam.save();
+            existingTeam.drivers.push(driver._id);
+            await existingTeam.save();
         } else {
             // If the team ID hasn't changed, simply update the driver's information
-            await Driver.findByIdAndUpdate(req.params.id, {name, age, nationality});
+            await driver.updateOne({ name, age, nationality });
         }
 
         res.redirect('/drivers');

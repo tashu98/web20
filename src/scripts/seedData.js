@@ -57,19 +57,19 @@ async function seedData() {
     try {
         console.log("Seeding data...")
         await User.deleteMany();
-        await User.insertMany(await hashedUsersData);
+        await User.collection.insertMany(await hashedUsersData);
 
         await Driver.deleteMany();
-        await Driver.insertMany(driversData);
+        await Driver.collection.insertMany(driversData);
 
         await Team.deleteMany();
-        await Team.insertMany(teamsData);
+        await Team.collection.insertMany(teamsData);
 
         await Sponsor.deleteMany();
-        await Sponsor.insertMany(sponsorsData);
+        await Sponsor.collection.insertMany(sponsorsData);
 
         await Race.deleteMany();
-        await Race.insertMany(racesData);
+        await Race.collection.insertMany(racesData);
 
         console.log('Data seeding completed.');
         process.exit(0);
