@@ -11,7 +11,7 @@ mongoose
     .connect(process.env.MONGODB_URI)
     .then(async (value) => {
         console.log('Mongodb connected....', value.connection.readyState);
-        await seedData();
+        await seedDataIfEmpty();
     })
     .catch(err => console.log(err.message));
 
@@ -78,4 +78,24 @@ async function seedData() {
         process.exit(1);
     }
 }
+async function seedDataIfEmpty() {
+    try {
+        console.log("Seeding data if tables are empty...")
+        const usersCount = await User.countDocuments();
+        const driversCount = await Driver.countDocuments();
+        const teamsCount = await Team.countDocuments();
+        const sponsorsCount = await Sponsor.countDocuments();
+        const racesCount = await Race.countDocuments();
 
+        if (usersCount === 0 && driversCount === 0 && teamsCount === 0 && sponsorsCount === 0 && racesCount === 0) {
+            console.log('All tables are empty. Proceeding with data seeding.');
+            await seedData();
+        } else {
+            console.log('Some tables are not empty. Skipping data seeding.');
+            process.exit(0);
+        }
+    } catch (error) {
+        console.error('Error checking tables:', error);
+        process.exit(1);
+    }
+}
