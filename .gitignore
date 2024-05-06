@@ -1,6 +1,5 @@
 # npm
 node_modules
-package-lock.json
 *.log
 *.gz
 .env
@@ -10,6 +9,7 @@ coverage
 .idea
 # Benchmarking
 benchmarks/graphs
+mongo_data
 
 # ignore additional files using core.excludesFile
 # https://git-scm.com/docs/gitignore

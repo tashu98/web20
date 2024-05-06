@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./src/bin/www",
-    "dev": "nodemon -L --watch src ./src/bin/www"
+    "dev": "nodemon -L --watch src ./src/bin/www",
+    "seed": "node ./src/scripts/seedData.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
